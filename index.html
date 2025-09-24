@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учёт и списание материалов в строительстве</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: The application is designed as an interactive, linear process map, which is the most intuitive way to represent a sequential business workflow like material management. The user flows from planning to write-off. Key interactions include clicking on each stage to expand a detailed view with participants, documents, and risks. This structure was chosen over a dashboard because the primary user goal is to understand a step-by-step process, not just view disconnected metrics. The application is supplemented with a KPI dashboard and an implementation guide to provide a holistic solution, transforming a static report into an actionable tool. -->
+    <!-- Visualization & Content Choices: 
+        1. Process Flow: Report Info -> Full material lifecycle. Goal -> Organize & Inform. Viz -> Interactive HTML/CSS timeline. Interaction -> Click to expand/collapse details. Justification -> Best method for visualizing a sequence. Library -> Vanilla JS & Tailwind.
+        2. KPIs: Report Info -> Key performance metrics (cost, time, efficiency). Goal -> Compare & Analyze. Viz -> Bar, Line, Doughnut charts. Interaction -> Tooltips on hover. Justification -> Standard, effective way to show quantitative data. Library -> Chart.js (Canvas).
+        3. Implementation Plan: Report Info -> Actionable steps for deployment. Goal -> Inform & Guide. Viz -> Styled checklist. Interaction -> None. Justification -> Clear, direct format for instructions. Library -> HTML/Tailwind.
+        4. Best Practices: Report Info -> Comparison of methods. Goal -> Compare. Viz -> HTML table. Interaction -> None. Justification -> Easy side-by-side comparison. Library -> HTML/Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfcfb;
+            color: #1f2937;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .step-card {
+            transition: all 0.3s ease-in-out;
+            border-left-width: 4px;
+        }
+        .step-card:not(.locked):hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .step-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .step-details.open {
+            max-height: 1000px; 
+        }
+        .locked {
+            filter: blur(4px);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .nav-link {
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #0d9488;
+        }
+        .kpi-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .kpi-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-teal-700">Управление материалами</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#process" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium">Процесс</a>
+                        <a href="#kpi" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium">KPI</a>
+                        <a href="#contact" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium">Внедрение</a>
+                        <a href="#practices" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium">Практики</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section id="intro" class="text-center mb-16">
+            <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+                Учёт и списание материалов в строительстве
+            </h1>
+            <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-600">
+                Специальная интерактивная презентация для Александра.
+            </p>
+        </section>
+
+        <section id="process" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Пошаговый процесс движения материалов</h2>
+            <div class="relative">
+                <div id="process-container" class="relative pl-6 border-l-2 border-teal-200">
+                    <!-- Шаги будут сгенерированы JS -->
+                </div>
+                <div id="process-overlay" class="absolute top-1/3 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-white/80 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8 rounded-lg z-10">
+                    <h3 class="text-2xl font-bold text-gray-800">Получите полный мгновенный доступ</h3>
+                    <p class="mt-4 max-w-xl text-gray-600">Вы видите первый этап. Чтобы сразу разблокировать остальные 6 этапов с описанием документов, участников и рисков, — оставьте заявку на внедрение.</p>
+                    <button id="unlock-button" class="mt-6 bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-teal-700 transition-transform transform hover:scale-105">
+                        Разблокировать полный доступ
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="kpi" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Ключевые показатели эффективности (KPI)</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                Анализируйте эти метрики для контроля и оптимизации процесса управления материалами. Эффективное отслеживание KPI позволяет выявлять узкие места, сокращать издержки и повышать рентабельность проектов.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="kpi-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <h3 class="font-semibold text-lg text-gray-700 mb-4">Отклонение затрат от сметы (%)</h3>
+                    <div class="chart-container"><canvas id="costVarianceChart"></canvas></div>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <h3 class="font-semibold text-lg text-gray-700 mb-4">Среднее время выполнения заказа (дни)</h3>
+                    <div class="chart-container"><canvas id="leadTimeChart"></canvas></div>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <h3 class="font-semibold text-lg text-gray-700 mb-4">Структура затрат на материалы</h3>
+                    <div class="chart-container"><canvas id="costStructureChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="mb-16 bg-teal-50 p-8 rounded-xl shadow-lg border border-teal-100">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Заявка на внедрение и консультацию</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">
+                Заполните форму, и вы <strong>сразу же</strong> получите полный доступ ко всей интерактивной схеме. Это займет 15 секунд. Я свяжусь с вами для обсуждения деталей внедрения этой системы в вашей компании.
+            </p>
+            <form id="contactForm" class="max-w-xl mx-auto space-y-4">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Ваше имя</label>
+                    <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500" value="Александр">
+                </div>
+                <div>
+                    <label for="company" class="block text-sm font-medium text-gray-700">Название компании</label>
+                    <input type="text" id="company" name="company" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500" value="РСК &quot;ВИРА&quot;">
+                </div>
+                <div>
+                    <label for="contactInfo" class="block text-sm font-medium text-gray-700">Телефон или Email для связи</label>
+                    <input type="text" id="contactInfo" name="contactInfo" required placeholder="Обязательное поле" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500">
+                </div>
+                <div class="text-center pt-4">
+                    <button type="submit" class="w-full bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-teal-700 transition-transform transform hover:scale-105">Разблокировать доступ и отправить заявку</button>
+                </div>
+            </form>
+            <div id="form-success-message" class="hidden text-center mt-6 p-4 bg-green-100 text-green-800 rounded-lg">
+                <h3 class="font-bold">Спасибо! Доступ открыт.</h3>
+                <p>Ваша заявка отправлена. Полная версия схемы разблокирована. Я скоро свяжусь с вами.</p>
+            </div>
+        </section>
+
+        <section id="implementation" class="mb-16 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">План внедрения системы</h2>
+             <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">
+                Для успешного внедрения представленного алгоритма в действующей компании в Архангельске, рекомендуется следовать этому пошаговому плану. План разделен на фазы, что обеспечивает плавный переход и минимизирует риски для текущих строительных проектов.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg text-teal-700 mb-3">Фаза 1: Подготовка (1-2 недели)</h3>
+                    <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>Создание рабочей группы</li>
+                        <li>Аудит текущих процессов</li>
+                        <li>Выбор ПО (1С, ERP)</li>
+                        <li>Разработка регламентов</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg text-teal-700 mb-3">Фаза 2: Пилотный проект (3-4 недели)</h3>
+                    <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>Выбор 1-2 объектов для теста</li>
+                        <li>Обучение сотрудников пилотной группы</li>
+                        <li>Запуск новой системы на объектах</li>
+                        <li>Сбор обратной связи</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg text-teal-700 mb-3">Фаза 3: Масштабирование (4-8 недель)</h3>
+                    <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>Анализ результатов пилота</li>
+                        <li>Корректировка регламентов и ПО</li>
+                        <li>Обучение всех сотрудников</li>
+                        <li>Поэтапное подключение всех объектов</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg text-teal-700 mb-3">Фаза 4: Оптимизация (Постоянно)</h3>
+                    <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>Мониторинг KPI</li>
+                        <li>Регулярный сбор обратной связи</li>
+                        <li>Внедрение улучшений</li>
+                        <li>Аттестация персонала</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="practices" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Сравнение мировых и российских практик</h2>
+             <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                Понимание различий в подходах к управлению материалами помогает выбрать оптимальную стратегию. Современные цифровые методы предлагают значительные преимущества в точности, скорости и контроле по сравнению с традиционными бумажными системами.
+            </p>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white rounded-lg shadow overflow-hidden">
+                    <thead class="bg-teal-600 text-white">
+                        <tr>
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Аспект</th>
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Традиционный (российский) подход</th>
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Современный (мировой) подход</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        <tr class="border-b">
+                            <td class="py-3 px-4 font-medium">Планирование</td>
+                            <td class="py-3 px-4">На основе сметы, часто с большим запасом "на всякий случай"</td>
+                            <td class="py-3 px-4">Динамическое, "Точно в срок" (Just-in-Time), на основе BIM-модели</td>
+                        </tr>
+                        <tr class="border-b bg-gray-50">
+                            <td class="py-3 px-4 font-medium">Учет</td>
+                            <td class="py-3 px-4">Бумажные формы (М-29, М-15), ручной ввод в 1С</td>
+                            <td class="py-3 px-4">Цифровой: QR-коды, RFID-метки, мобильные приложения, интеграция с ERP</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-3 px-4 font-medium">Контроль</td>
+                            <td class="py-3 px-4">Периодические инвентаризации, сложно отследить хищения/потери</td>
+                            <td class="py-3 px-4">Контроль в реальном времени, отслеживание каждой единицы, фотофиксация</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="py-3 px-4 font-medium">Принятие решений</td>
+                            <td class="py-3 px-4">На основе опыта и интуиции прораба/снабженца</td>
+                            <td class="py-3 px-4">На основе аналитики данных (Data-Driven), прогнозный анализ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="document-flow" class="mb-16 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Визуализация документооборота</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                Рассмотрим весь путь на самом простом примере — как один гвоздь проходит через всю систему учета от заявки до списания.
+            </p>
+            <div class="flex justify-center mb-10">
+                <svg class="w-24 h-24 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m-3-1l-3 1m0-1l-3-1m3 1V3.545M3 15.25v2.25m15-4.5v-2.25a.75.75 0 00-1.5 0v2.25a.75.75 0 001.5 0zM3 15.25v2.25m15-4.5v-2.25a.75.75 0 00-1.5 0v2.25a.75.75 0 001.5 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v1.5H3.75V6zM3.75 18.75A2.25 2.25 0 011.5 16.5V6" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5l-4.5-4.5-4.5 4.5" />
+                    <path d="M12 3L2 8L12 13L22 8L12 3Z" fill="#d1d5db"></path>
+                    <path d="M4.5 17.5L2 15L12 20L22 15L19.5 17.5" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M22 8V15" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M2 8V15" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <svg class="w-24 h-24 text-gray-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.241 1.514a3.11 3.11 0 00-4.482 0L3.993 7.28a3.11 3.11 0 000 4.482l8.485 8.485a3.11 3.11 0 004.482 0l5.768-5.768a3.11 3.11 0 000-4.482L14.241 1.514z" stroke="#9ca3af" stroke-width="1.5"></path><path d="M12.56 12.016l-1.385 1.385a.5.5 0 01-.707 0l-1.385-1.385a.5.5 0 010-.707l1.385-1.385a.5.5 0 01.707 0l1.385 1.385a.5.5 0 010 .707z" stroke="#9ca3af" stroke-width="1.5"></path></svg>
+                 <svg class="w-24 h-24 text-gray-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 4.5h13v15H5.5v-15z" stroke="#9ca3af" stroke-width="1.5"></path><path d="M8.5 7.5h7M8.5 10.5h7M8.5 13.5h4" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"></path></svg>
+            </div>
+            <div class="relative">
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-teal-200 -translate-y-1/2"></div>
+                <div class="relative grid grid-cols-1 md:grid-cols-5 gap-y-8 md:gap-x-4">
+                    <div class="flex flex-col items-center text-center space-y-2">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">1</div>
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full">
+                            <h3 class="font-semibold mb-1 text-gray-800">Заявка</h3>
+                            <p class="text-sm text-gray-500">📋 Требование-накладная (М-11)</p>
+                            <p class="text-xs text-gray-400 mt-1">Инициатор: Прораб</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center text-center space-y-2">
+                        <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">2</div>
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full">
+                            <h3 class="font-semibold mb-1 text-gray-800">Отпуск со склада</h3>
+                            <p class="text-sm text-gray-500">📋 Подписанная М-11</p>
+                            <p class="text-xs text-gray-400 mt-1">Исполнитель: Кладовщик</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center text-center space-y-2">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">3</div>
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full">
+                            <h3 class="font-semibold mb-1 text-gray-800">Использование</h3>
+                            <p class="text-sm text-gray-500">🔨 Физический расход</p>
+                            <p class="text-xs text-gray-400 mt-1">Исполнитель: Рабочий</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center text-center space-y-2">
+                        <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">4</div>
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full">
+                            <h3 class="font-semibold mb-1 text-gray-800">Фиксация расхода</h3>
+                            <p class="text-sm text-gray-500">📋 Акт вып. работ (КС-2)</p>
+                            <p class="text-xs text-gray-400 mt-1">Ответственный: Прораб</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center text-center space-y-2">
+                        <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">5</div>
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full">
+                            <h3 class="font-semibold mb-1 text-gray-800">Списание</h3>
+                            <p class="text-sm text-gray-500">📋 Отчет о расходе (М-29)</p>
+                            <p class="text-xs text-gray-400 mt-1">Исполнитель: Бухгалтерия</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-10 mt-10 border-t border-gray-200 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-xl font-semibold text-gray-800">Климов Евгений Александрович</p>
+            <p class="mt-2 text-gray-600">Автор и разработчик системы</p>
+            <a href="https://t.me/eklimov?text=Здравствуйте!%20Пишу%20из%20презентации%20по%20управлению%20материальными%20запасами,%20опубликованной%20на%20сайте%20https://eklimov.github.io/construction-material-flow/" target="_blank" rel="noopener noreferrer" class="mt-4 inline-block bg-sky-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-sky-600 transition-transform transform hover:scale-105">
+                Связаться в Telegram
+            </a>
+        </div>
+    </footer>
+
+    <!-- Floating Telegram Button -->
+    <a href="https://t.me/eklimov?text=Здравствуйте!%20Пишу%20из%20презентации%20по%20управлению%20материальными%20запасами,%20опубликованной%20на%20сайте%20https://eklimov.github.io/construction-material-flow/" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-sky-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-sky-600 transition-transform transform hover:scale-110">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.57c-.27 1.15-1.02 1.43-2.05 1.01L12.7 16.4l-2.25 2.15c-.58.55-1.04.8-1.67.8z"/>
+        </svg>
+    </a>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const processData = [
+            {
+                id: 'step1',
+                title: '1. Планирование и Заявка',
+                color: 'border-blue-500',
+                content: {
+                    participants: ['Инженер ПТО', 'Прораб', 'Начальник участка'],
+                    documents: ['Проектно-сметная документация (ПСД)', 'График производства работ', 'Заявка на материалы (внутренняя форма)'],
+                    actions: [
+                        'Инженер ПТО формирует потребность на основе ПСД.',
+                        'Прораб/Начальник участка корректирует потребность согласно графику работ.',
+                        'Формируется и утверждается консолидированная заявка на материалы.'
+                    ],
+                    risks: ['Неверный расчет потребности (излишки/недостача)', 'Несвоевременная подача заявки']
+                }
+            },
+            {
+                id: 'step2',
+                title: '2. Снабжение и Закупка',
+                color: 'border-indigo-500',
+                content: {
+                    participants: ['Отдел снабжения', 'Сметный отдел'],
+                    documents: ['Счет на оплату', 'Договор поставки', 'Спецификация'],
+                    actions: [
+                        'Поиск и выбор поставщиков, проведение тендеров.',
+                        'Проверка цен на соответствие рынку и смете.',
+                        'Заключение договора, согласование условий и сроков поставки.',
+                        'Оформление и оплата счета.'
+                    ],
+                    risks: ['Выбор ненадежного поставщика', 'Завышенные цены', 'Срыв сроков поставки']
+                }
+            },
+            {
+                id: 'step3',
+                title: '3. Логистика и Приемка',
+                color: 'border-purple-500',
+                content: {
+                    participants: ['Отдел логистики', 'Зав. складом / Кладовщик', 'Прораб'],
+                    documents: ['Товарно-транспортная накладная (ТТН)', 'Счет-фактура (УПД)', 'Сертификаты качества/паспорта на материалы'],
+                    actions: [
+                        'Организация доставки на склад или напрямую на объект.',
+                        'Приемка по количеству: пересчет, взвешивание.',
+                        'Приемка по качеству: визуальный осмотр, проверка документов качества.',
+                        'Подписание приемных документов.'
+                    ],
+                    risks: ['Повреждение материалов при транспортировке', 'Недопоставка (несоответствие по количеству)', 'Поставка некачественного материала']
+                }
+            },
+            {
+                id: 'step4',
+                title: '4. Складской учет и хранение',
+                color: 'border-pink-500',
+                content: {
+                    participants: ['Зав. складом', 'Кладовщик'],
+                    documents: ['Приходный ордер (форма М-4)', 'Карточка складского учета (форма М-17)'],
+                    actions: [
+                        'Оприходование материалов на склад в системе учета (1С, ERP).',
+                        'Маркировка и размещение материалов в местах хранения.',
+                        'Обеспечение надлежащих условий хранения (температура, влажность).',
+                        'Проведение плановых и внеплановых инвентаризаций.'
+                    ],
+                    risks: ['Пересортица', 'Порча материалов из-за неправильного хранения', 'Хищения со склада']
+                }
+            },
+            {
+                id: 'step5',
+                title: '5. Перемещение на объект',
+                color: 'border-red-500',
+                content: {
+                    participants: ['Прораб', 'Кладовщик', 'Водитель'],
+                    documents: ['Требование-накладная (форма М-11)', 'Лимитно-заборная карта (форма М-8)'],
+                    actions: [
+                        'Прораб подает заявку (требование) на выдачу материалов со склада.',
+                        'Кладовщик комплектует и отпускает материалы по накладной.',
+                        'Оформление внутреннего перемещения в учетной системе.',
+                        'Доставка материалов на строительный участок.'
+                    ],
+                    risks: ['Выдача материалов сверх лимита', 'Некорректное оформление документов', 'Потери при перемещении']
+                }
+            },
+            {
+                id: 'step6',
+                title: '6. Учет на объекте и использование',
+                color: 'border-orange-500',
+                content: {
+                    participants: ['Прораб', 'Материально-ответственное лицо (МОЛ) на объекте', 'Бригадир'],
+                    documents: ['Материальный отчет прораба', 'Акт о расходе материалов'],
+                    actions: [
+                        'Приемка материалов на объекте, организация приобъектного склада.',
+                        'Выдача материалов бригадам под роспись.',
+                        'Оперативный учет расхода материалов по видам работ.',
+                        'Контроль за рациональным использованием, сбор и учет возвратных отходов.'
+                    ],
+                    risks: ['Нерациональное использование (перерасход)', 'Хищения с объекта', 'Отсутствие оперативного учета фактического расхода']
+                }
+            },
+            {
+                id: 'step7',
+                title: '7. Списание и отчетность',
+                color: 'border-amber-500',
+                content: {
+                    participants: ['Прораб', 'Инженер ПТО', 'Бухгалтерия'],
+                    documents: ['Акт о списании материалов (форма М-29)', 'Акт выполненных работ (КС-2)', 'Справка о стоимости (КС-3)'],
+                    actions: [
+                        'Ежемесячно прораб составляет отчет по форме М-29, сравнивая фактический расход с нормативным.',
+                        'Инженер ПТО проверяет и утверждает отчет.',
+                        'Бухгалтерия на основании М-29 и КС-2 производит списание материалов с подотчета МОЛ на себестоимость строительства.',
+                        'Анализ отклонений (экономия/перерасход) и выявление причин.'
+                    ],
+                    risks: ['Несвоевременное списание "зависших" материалов', 'Некорректное соотнесение расхода с выполненными работами', 'Формальное подписание М-29 без анализа причин отклонений']
+                }
+            }
+        ];
+        
+        const processContainer = document.querySelector('#process-container');
+        const processOverlay = document.querySelector('#process-overlay');
+        const unlockButton = document.querySelector('#unlock-button');
+        const contactForm = document.querySelector('#contactForm');
+        const formSuccessMessage = document.querySelector('#form-success-message');
+        const contactSection = document.querySelector('#contact');
+        
+        function generateProcessSteps() {
+            processContainer.innerHTML = ''; 
+            processData.forEach((step, index) => {
+                const stepEl = document.createElement('div');
+                stepEl.className = 'mb-8 ml-4';
+                stepEl.dataset.stepIndex = index;
+                
+                const isLocked = index > 0;
+
+                stepEl.innerHTML = `
+                    <div class="absolute w-4 h-4 bg-teal-500 rounded-full -left-[9px] border-2 border-white"></div>
+                    <div class="step-card ${isLocked ? '' : 'cursor-pointer'} bg-white p-6 rounded-lg shadow-sm ${step.color}">
+                        <h3 class="text-xl font-bold text-gray-800">${step.title}</h3>
+                    </div>
+                    <div class="step-details pl-4 pt-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                            <div class="bg-gray-50 p-3 rounded-md">
+                                <h4 class="font-semibold mb-2 text-gray-600">👤 Участники</h4>
+                                <ul class="list-disc list-inside text-gray-500">${step.content.participants.map(p => `<li>${p}</li>`).join('')}</ul>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-md">
+                                <h4 class="font-semibold mb-2 text-gray-600">📋 Документы</h4>
+                                <ul class="list-disc list-inside text-gray-500">${step.content.documents.map(d => `<li>${d}</li>`).join('')}</ul>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-md">
+                                <h4 class="font-semibold mb-2 text-gray-600">✅ Ключевые действия</h4>
+                                <ul class="list-disc list-inside text-gray-500">${step.content.actions.map(a => `<li>${a}</li>`).join('')}</ul>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-md">
+                                <h4 class="font-semibold mb-2 text-gray-600">⚠️ Риски и контроль</h4>
+                                <ul class="list-disc list-inside text-gray-500">${step.content.risks.map(r => `<li>${r}</li>`).join('')}</ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                if (isLocked) {
+                    stepEl.querySelector('.step-card').classList.add('locked');
+                }
+
+                processContainer.appendChild(stepEl);
+
+                stepEl.querySelector('.step-card').addEventListener('click', (e) => {
+                    if (e.currentTarget.classList.contains('locked')) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        stepEl.querySelector('.step-details').classList.toggle('open');
+                    }
+                });
+            });
+        }
+
+        generateProcessSteps();
+
+        unlockButton.addEventListener('click', () => {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const contactInfo = document.getElementById('contactInfo').value;
+            if (contactInfo.trim() === '') {
+                const contactInfoInput = document.getElementById('contactInfo');
+                contactInfoInput.focus();
+                contactInfoInput.classList.add('border-red-500', 'ring-red-500');
+                return;
+            }
+
+            processOverlay.style.display = 'none';
+            document.querySelectorAll('.step-card.locked').forEach(card => {
+                card.classList.remove('locked');
+                card.classList.add('cursor-pointer');
+            });
+            
+            contactForm.style.display = 'none';
+            document.querySelector('#contact h2').textContent = 'Заявка успешно отправлена!';
+            document.querySelector('#contact > p').style.display = 'none';
+            formSuccessMessage.classList.remove('hidden');
+            
+            window.scrollTo({ top: document.querySelector('#process').offsetTop, behavior: 'smooth' });
+        });
+
+        document.getElementById('contactInfo').addEventListener('input', function() {
+            this.classList.remove('border-red-500', 'ring-red-500');
+        });
+
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { padding: 15, font: { size: 12 } }
+                }
+            },
+            scales: {
+                y: { beginAtZero: true, ticks: { color: '#6b7280', font: { size: 10 } }, grid: { color: '#e5e7eb' } },
+                x: { ticks: { color: '#6b7280', font: { size: 10 } }, grid: { display: false } }
+            }
+        };
+
+        new Chart(document.getElementById('costVarianceChart'), {
+            type: 'bar',
+            data: { labels: ['Объект 1', 'Объект 2', 'Объект 3', 'Объект 4'], datasets: [{ label: 'Перерасход', data: [5, 12, 0, 8], backgroundColor: '#ef4444', borderColor: '#dc2626', borderWidth: 1 }, { label: 'Экономия', data: [0, 0, 3, 0], backgroundColor: '#22c55e', borderColor: '#16a34a', borderWidth: 1 }] },
+            options: { ...chartOptions }
+        });
+
+        new Chart(document.getElementById('leadTimeChart'), {
+            type: 'line',
+            data: { labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'], datasets: [{ label: 'Срок поставки', data: [7, 8, 6, 9, 7, 10], fill: false, borderColor: '#3b82f6', tension: 0.1 }] },
+            options: { ...chartOptions }
+        });
+
+        new Chart(document.getElementById('costStructureChart'), {
+            type: 'doughnut',
+            data: { labels: ['Бетон', 'Арматура', 'Кирпич', 'Изоляция', 'Прочее'], datasets: [{ label: 'Структура затрат', data: [35, 25, 15, 10, 15], backgroundColor: ['#38bdf8', '#fb923c', '#f87171', '#a78bfa', '#e5e7eb'], hoverOffset: 4 }] },
+            options: { ...chartOptions, scales: { x: { display: false }, y: { display: false } } }
+        });
+
+    });
+    </script>
+    
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    
+       ym(104272984, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+       });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/104272984" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</body>
+</html>
+

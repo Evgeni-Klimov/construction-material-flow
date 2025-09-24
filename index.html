@@ -60,7 +60,8 @@
         }
         .step-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.07);
+            border-left-color: #0d9488;
         }
         .step-details {
             max-height: 0;
@@ -105,7 +106,7 @@
         </nav>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-28">
         <section id="intro" class="text-center mb-16">
             <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
                 Учёт и списание материалов в строительстве
@@ -115,7 +116,7 @@
             </p>
         </section>
         
-        <section id="nail-example-flow" class="mb-20 bg-white/90 p-8 rounded-xl shadow-lg border border-gray-100">
+        <section id="nail-example-flow" class="mb-20 bg-white/90 p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100">
             <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Путь одного гвоздя: от заявки до списания</h2>
             <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">
                 Чтобы понять весь процесс, давайте проследим, как один обычный гвоздь проходит через всю систему учета и какие документы его сопровождают на каждом шаге.
@@ -171,7 +172,8 @@
         </section>
 
         <section id="process" class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Подробный процесс движения материалов</h2>
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Подробный процесс движения материалов</h2>
+            <p class="text-center text-gray-500 text-sm mb-10">Нажмите на любой этап, чтобы раскрыть детали.</p>
             <div id="process-container" class="relative pl-8 border-l-2 border-teal-200">
                 <!-- Шаги будут сгенерированы JS -->
             </div>
@@ -198,16 +200,15 @@
             </div>
         </section>
 
-        <section id="contact" class="mb-16 bg-teal-50/90 p-8 rounded-xl shadow-lg border border-teal-100">
+        <section id="contact" class="mb-16 bg-teal-50/90 p-6 sm:p-8 rounded-xl shadow-lg border border-teal-100">
             <div class="max-w-2xl mx-auto">
                 <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Приглашение на работу</h2>
                 <p class="text-center text-gray-700 font-semibold text-xl">Руководитель отдела снабжения</p>
                 
                 <div class="mt-6 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <p id="salary-display" class="text-2xl font-bold text-teal-600">120 000 ₽ <span class="text-lg font-normal text-gray-600">за месяц на руки</span></p>
-                    <div class="mt-4 grid grid-cols-2 gap-4 text-sm text-gray-700">
+                    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
                         <div><span class="font-semibold">Выплаты:</span> два раза в месяц</div>
-                        <div><span class="font-semibold">Опыт работы:</span> 3–6 лет</div>
                         <div><span class="font-semibold">Занятость:</span> полная</div>
                         <div><span class="font-semibold">График:</span> 5/2, с 9:00 до 18:00</div>
                     </div>
@@ -216,12 +217,16 @@
                 <form id="offerForm" class="mt-8 space-y-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Готовы предложить:</label>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
-                            <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="120000" class="mr-2 text-teal-600 focus:ring-teal-500" checked>120 000 ₽/мес</label>
-                            <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="130000" class="mr-2 text-teal-600 focus:ring-teal-500">130 000 ₽/мес</label>
-                            <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="140000" class="mr-2 text-teal-600 focus:ring-teal-500">140 000 ₽/мес</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="120000" class="mr-2 text-teal-600 focus:ring-teal-500" checked>120 т.р./мес</label>
+                            <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="130000" class="mr-2 text-teal-600 focus:ring-teal-500">130 т.р./мес</label>
+                            <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="140000" class="mr-2 text-teal-600 focus:ring-teal-500">140 т.р./мес</label>
                             <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="negotiable" class="mr-2 text-teal-600 focus:ring-teal-500">Договоримся</label>
                         </div>
+                    </div>
+                    <div>
+                        <label for="startDate" class="block text-sm font-medium text-gray-700">Желаемая дата начала работы</label>
+                        <input type="date" id="startDate" name="startDate" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500">
                     </div>
                      <div>
                         <label for="name" class="block text-sm font-medium text-gray-700">От кого офер</label>
@@ -238,7 +243,7 @@
             </div>
         </section>
 
-        <section id="implementation" class="mb-16 bg-white/90 p-8 rounded-xl shadow-lg border border-gray-100">
+        <section id="implementation" class="mb-16 bg-white/90 p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100">
             <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">План внедрения системы</h2>
              <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">
                 Для успешного внедрения представленного алгоритма в действующей компании в Архангельске, рекомендуется следовать этому пошаговому плану. План разделен на фазы, что обеспечивает плавный переход и минимизирует риски для текущих строительных проектов.
@@ -328,33 +333,38 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p class="text-xl font-semibold text-gray-800">Климов Евгений Александрович</p>
             <p class="mt-2 text-gray-600">Автор и разработчик системы</p>
-            <a href="https://t.me/eklimov?text=Здравствуйте!%20Пишу%20из%20презентации%20по%20управлению%20материальными%20запасами,%20опубликованной%20на%20сайте%20https://eklimov.github.io/construction-material-flow/" target="_blank" rel="noopener noreferrer" class="mt-4 inline-block bg-sky-500 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-sky-600 transition-transform transform hover:scale-105">
-                Связаться в Telegram
-            </a>
         </div>
     </footer>
 
-    <!-- Floating Feedback Box -->
-    <div id="feedback-box" class="fixed bottom-6 left-6 z-50 bg-white/95 p-4 rounded-lg shadow-lg text-center border">
-        <p class="text-sm font-semibold mb-2 text-gray-700">Оцените презентацию:</p>
-        <div id="feedback-buttons" class="flex justify-center gap-3">
-            <button id="likeButton" class="flex items-center justify-center bg-green-500 text-white w-12 h-10 rounded-lg shadow-md hover:bg-green-600 transition-transform transform hover:scale-110">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333V17a1 1 0 001 1h6.758a1 1 0 00.97-1.226l-1.25-4.375a1 1 0 00-.97-.774H9V5.833A1.833 1.833 0 007.167 4H6.5a1 1 0 00-1 1v4.333z"></path></svg>
-            </button>
-            <button id="dislikeButton" class="flex items-center justify-center bg-red-500 text-white w-12 h-10 rounded-lg shadow-md hover:bg-red-600 transition-transform transform hover:scale-110">
-                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667V3a1 1 0 00-1-1h-6.758a1 1 0 00-.97 1.226l1.25 4.375a1 1 0 00.97.774H11v8.167A1.833 1.833 0 0012.833 16h.667a1 1 0 001-1V9.667z"></path></svg>
-            </button>
+    <!-- Floating Action Bar -->
+    <div class="fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-t">
+        <div class="max-w-md mx-auto px-4 flex justify-between items-center h-20">
+            <div id="feedback-dislike-wrapper" class="text-center">
+                <button id="dislikeButton" class="flex items-center justify-center bg-red-500 text-white w-16 h-12 rounded-lg shadow-lg hover:bg-red-600 transition-transform transform hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667V3a1 1 0 00-1-1h-6.758a1 1 0 00-.97 1.226l1.25 4.375a1 1 0 00.97.774H11v8.167A1.833 1.833 0 0012.833 16h.667a1 1 0 001-1V9.667z" />
+                    </svg>
+                </button>
+                 <p id="dislike-thanks" class="hidden text-sm font-semibold text-red-600 mt-1">Спасибо</p>
+            </div>
+
+            <a href="https://t.me/eklimov?text=Здравствуйте!%20Пишу%20из%20презентации%20по%20управлению%20материальными%20запасами,%20опубликованной%20на%20сайте%20https://eklimov.github.io/construction-material-flow/" target="_blank" rel="noopener noreferrer" class="bg-sky-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:bg-sky-600 transition-transform transform hover:scale-110 -translate-y-4 border-4 border-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.57c-.27 1.15-1.02 1.43-2.05 1.01L12.7 16.4l-2.25 2.15c-.58.55-1.04.8-1.67.8z"/>
+                </svg>
+            </a>
+
+            <div id="feedback-like-wrapper" class="text-center">
+                 <button id="likeButton" class="flex items-center justify-center bg-green-500 text-white w-16 h-12 rounded-lg shadow-lg hover:bg-green-600 transition-transform transform hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333V17a1 1 0 001 1h6.758a1 1 0 00.97-1.226l-1.25-4.375a1 1 0 00-.97-.774H9V5.833A1.833 1.833 0 007.167 4H6.5a1 1 0 00-1 1v4.333z" />
+                    </svg>
+                </button>
+                 <p id="like-thanks" class="hidden text-sm font-semibold text-green-600 mt-1">Спасибо</p>
+            </div>
         </div>
-        <p id="feedback-thanks" class="hidden text-sm font-semibold text-teal-700">Спасибо!</p>
     </div>
-
-    <!-- Floating Telegram Button -->
-    <a href="https://t.me/eklimov?text=Здравствуйте!%20Пишу%20из%20презентации%20по%20управлению%20материальными%20запасами,%20опубликованной%20на%20сайте%20https://eklimov.github.io/construction-material-flow/" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-sky-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-sky-600 transition-transform transform hover:scale-110">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.57c-.27 1.15-1.02 1.43-2.05 1.01L12.7 16.4l-2.25 2.15c-.58.55-1.04.8-1.67.8z"/>
-        </svg>
-    </a>
-
+   
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const processData = [
@@ -481,11 +491,14 @@
                 const stepEl = document.createElement('div');
                 stepEl.className = 'mb-8 ml-4';
                 stepEl.innerHTML = `
-                    <div class="absolute w-8 h-8 -left-4 top-2.5 flex items-center justify-center">
+                    <div class="absolute w-8 h-8 -left-4 top-3 flex items-center justify-center">
                         <img src="https://grizly.club/uploads/posts/2023-08/1691613712_grizly-club-p-kartinki-gvozd-bez-fona-32.jpg" alt="Гвоздь" class="w-7 h-7 object-contain -rotate-45" onerror="this.style.display='none'">
                     </div>
                     <div class="step-card cursor-pointer bg-white p-6 rounded-lg shadow-sm ${step.color}">
-                        <h3 class="text-xl font-bold text-gray-800">${step.title}</h3>
+                         <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-gray-800">${step.title}</h3>
+                            <svg class="chevron-icon w-6 h-6 text-gray-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
                     </div>
                     <div class="step-details pl-4 pt-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
@@ -510,17 +523,30 @@
                 `;
                 processContainer.appendChild(stepEl);
 
-                stepEl.querySelector('.step-card').addEventListener('click', () => {
+                stepEl.querySelector('.step-card').addEventListener('click', (e) => {
                     stepEl.querySelector('.step-details').classList.toggle('open');
+                    stepEl.querySelector('.chevron-icon').classList.toggle('rotate-180');
                 });
             });
         }
 
         generateProcessSteps();
 
+        const startDateInput = document.getElementById('startDate');
+        startDateInput.min = new Date().toISOString().split("T")[0];
+
         offerForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const offerFrom = document.getElementById('name').value;
+            const startDateValue = startDateInput.value;
+            if (!startDateValue) {
+                alert('Пожалуйста, выберите желаемую дату начала работы.');
+                startDateInput.focus();
+                return;
+            }
+            const [year, month, day] = startDateValue.split('-');
+            const formattedDate = `${day}.${month}.${year}`;
+
             const selectedSalaryRadio = document.querySelector('input[name="salary"]:checked');
             let salaryText = '';
 
@@ -530,17 +556,16 @@
                 salaryText = `${new Intl.NumberFormat('ru-RU').format(selectedSalaryRadio.value)} ₽ в месяц`;
             }
 
-            const message = `Александр, здравствуйте!\n\nНаправляю вам офер (приглашение на работу) на должность "Руководитель отдела снабжения" от имени "${offerFrom}".\n\nУсловия, которые мы готовы предложить:\n- Зарплата: ${salaryText}\n- График: 5/2, с 9 до 18\n- Опыт: 3–6 лет\n\nПодробности презентации доступны по ссылке: https://eklimov.github.io/construction-material-flow/\n\nГотовы обсудить детали.`;
+            const message = `Евгений, здравствуйте!\n\nНаправляю вам офер (приглашение на работу) на должность "Руководитель отдела снабжения" от имени "${offerFrom}".\n\nУсловия, которые мы готовы предложить:\n- Зарплата: ${salaryText}\n- Желаемая дата начала работы: ${formattedDate}\n- График: 5/2, с 9 до 18\n\nПодробности при встрече. Готовы обсуждать детали.`;
             const telegramUrl = `https://t.me/eklimov?text=${encodeURIComponent(message)}`;
             
             window.open(telegramUrl, '_blank');
             
             offerForm.style.display = 'none';
-            document.querySelector('#contact > div > p').style.display = 'none';
+            document.querySelector('#contact > div > h2 + p').style.display = 'none';
             formSuccessMessage.classList.remove('hidden');
         });
 
-        // Dynamic salary display
         const salaryRadios = document.querySelectorAll('input[name="salary"]');
         const salaryDisplay = document.getElementById('salary-display');
         salaryRadios.forEach(radio => {
@@ -554,26 +579,24 @@
             });
         });
 
-        // Feedback buttons logic
         const likeButton = document.getElementById('likeButton');
         const dislikeButton = document.getElementById('dislikeButton');
-        const feedbackThanks = document.getElementById('feedback-thanks');
-        const feedbackButtons = document.getElementById('feedback-buttons');
+        const likeThanks = document.getElementById('like-thanks');
+        const dislikeThanks = document.getElementById('dislike-thanks');
         
         likeButton.addEventListener('click', () => {
             ym(104272984, 'reachGoal', 'like_click');
-            const telegramUrl = `https://t.me/eklimov?text=Здравствуйте!%20Мне%20понравилась%20ваша%20презентация%20по%20управлению%20материалами%20на%20сайте%20https://eklimov.github.io/construction-material-flow/`;
-            window.open(telegramUrl, '_blank');
-            feedbackButtons.classList.add('hidden');
-            feedbackThanks.classList.remove('hidden');
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            likeButton.classList.add('hidden');
+            likeThanks.classList.remove('hidden');
         });
 
         dislikeButton.addEventListener('click', () => {
             const reason = prompt('Пожалуйста, укажите, что именно вам не понравилось или чего не хватило:');
-            if (reason !== null) { // User clicked OK, even if the reason is empty
+            if (reason !== null) {
                 ym(104272984, 'reachGoal', 'dislike_click', { reason: reason || 'Причина не указана' });
-                feedbackButtons.classList.add('hidden');
-                feedbackThanks.classList.remove('hidden');
+                dislikeButton.classList.add('hidden');
+                dislikeThanks.classList.remove('hidden');
             }
         });
 
@@ -615,19 +638,15 @@
     </script>
     
     <!-- Yandex.Metrika counter -->
-    <script type="text/javascript" >
-       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-       m[i].l=1*new Date();
-       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-    
-       ym(104272984, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            webvisor:true
-       });
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104272984', 'ym');
+
+        ym(104272984, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/104272984" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->

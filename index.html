@@ -22,8 +22,23 @@
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #fdfcfb;
+            background-image: url('https://grizly.club/uploads/posts/2023-08/1691613710_grizly-club-p-kartinki-gvozd-bez-fona-22.png');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             color: #1f2937;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(3px);
+            z-index: -1;
         }
         .chart-container {
             position: relative;
@@ -43,7 +58,7 @@
             transition: all 0.3s ease-in-out;
             border-left-width: 4px;
         }
-        .step-card:not(.locked):hover {
+        .step-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
@@ -54,11 +69,6 @@
         }
         .step-details.open {
             max-height: 1000px; 
-        }
-        .locked {
-            filter: blur(4px);
-            opacity: 0.6;
-            pointer-events: none;
         }
         .nav-link {
             transition: color 0.2s;
@@ -85,10 +95,10 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#nail-example-flow" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium">Пример</a>
                         <a href="#process" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium">Процесс</a>
                         <a href="#kpi" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium">KPI</a>
-                        <a href="#contact" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium">Внедрение</a>
-                        <a href="#practices" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium">Практики</a>
+                        <a href="#contact" class="nav-link text-gray-600 px-3 py-2 rounded-md text-sm font-medium">Приглашение</a>
                     </div>
                 </div>
             </div>
@@ -104,20 +114,66 @@
                 Специальная интерактивная презентация для Александра.
             </p>
         </section>
+        
+        <section id="nail-example-flow" class="mb-20 bg-white/90 p-8 rounded-xl shadow-lg border border-gray-100">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Путь одного гвоздя: от заявки до списания</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">
+                Чтобы понять весь процесс, давайте проследим, как один обычный гвоздь проходит через всю систему учета и какие документы его сопровождают на каждом шаге.
+            </p>
+            <div class="flex justify-center mb-10">
+                <img src="https://grizly.club/uploads/posts/2023-08/1691613712_grizly-club-p-kartinki-gvozd-bez-fona-32.jpg" alt="Строительный гвоздь" class="w-28 h-28 object-contain -rotate-45" onerror="this.style.display='none'">
+            </div>
+            <div class="relative">
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-teal-200 -translate-y-1/2"></div>
+                <div class="relative grid grid-cols-1 md:grid-cols-5 gap-y-8 md:gap-x-4">
+                    <div class="flex flex-col items-center text-center space-y-2">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">1</div>
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full min-h-[140px]">
+                            <h3 class="font-semibold mb-1 text-gray-800">Заявка</h3>
+                            <p class="text-sm text-gray-500">📋 Требование-накладная (М-11)</p>
+                            <p class="text-xs text-gray-400 mt-1">Инициатор: Прораб</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center text-center space-y-2">
+                        <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">2</div>
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full min-h-[140px]">
+                            <h3 class="font-semibold mb-1 text-gray-800">Отпуск со склада</h3>
+                            <p class="text-sm text-gray-500">📋 Подписанная М-11</p>
+                            <p class="text-xs text-gray-400 mt-1">Исполнитель: Кладовщик</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center text-center space-y-2">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">3</div>
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full min-h-[140px]">
+                            <h3 class="font-semibold mb-1 text-gray-800">Использование</h3>
+                            <p class="text-sm text-gray-500">🔨 Физический расход</p>
+                            <p class="text-xs text-gray-400 mt-1">Исполнитель: Рабочий</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center text-center space-y-2">
+                        <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">4</div>
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full min-h-[140px]">
+                            <h3 class="font-semibold mb-1 text-gray-800">Фиксация расхода</h3>
+                            <p class="text-sm text-gray-500">📋 Акт вып. работ (КС-2)</p>
+                            <p class="text-xs text-gray-400 mt-1">Ответственный: Прораб</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center text-center space-y-2">
+                        <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">5</div>
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full min-h-[140px]">
+                            <h3 class="font-semibold mb-1 text-gray-800">Списание</h3>
+                            <p class="text-sm text-gray-500">📋 Отчет о расходе (М-29)</p>
+                            <p class="text-xs text-gray-400 mt-1">Исполнитель: Бухгалтерия</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section id="process" class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Пошаговый процесс движения материалов</h2>
-            <div class="relative">
-                <div id="process-container" class="relative pl-6 border-l-2 border-teal-200">
-                    <!-- Шаги будут сгенерированы JS -->
-                </div>
-                <div id="process-overlay" class="absolute top-1/3 bottom-0 left-0 right-0 bg-gradient-to-t from-white to-white/80 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8 rounded-lg z-10">
-                    <h3 class="text-2xl font-bold text-gray-800">Получите полный мгновенный доступ</h3>
-                    <p class="mt-4 max-w-xl text-gray-600">Вы видите первый этап. Чтобы сразу разблокировать остальные 6 этапов с описанием документов, участников и рисков, — оставьте заявку на внедрение.</p>
-                    <button id="unlock-button" class="mt-6 bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-teal-700 transition-transform transform hover:scale-105">
-                        Разблокировать полный доступ
-                    </button>
-                </div>
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Подробный процесс движения материалов</h2>
+            <div id="process-container" class="relative pl-8 border-l-2 border-teal-200">
+                <!-- Шаги будут сгенерированы JS -->
             </div>
         </section>
 
@@ -127,50 +183,62 @@
                 Анализируйте эти метрики для контроля и оптимизации процесса управления материалами. Эффективное отслеживание KPI позволяет выявлять узкие места, сокращать издержки и повышать рентабельность проектов.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="kpi-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                <div class="kpi-card bg-white/90 p-6 rounded-xl shadow-md border border-gray-100">
                     <h3 class="font-semibold text-lg text-gray-700 mb-4">Отклонение затрат от сметы (%)</h3>
                     <div class="chart-container"><canvas id="costVarianceChart"></canvas></div>
                 </div>
-                <div class="kpi-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                <div class="kpi-card bg-white/90 p-6 rounded-xl shadow-md border border-gray-100">
                     <h3 class="font-semibold text-lg text-gray-700 mb-4">Среднее время выполнения заказа (дни)</h3>
                     <div class="chart-container"><canvas id="leadTimeChart"></canvas></div>
                 </div>
-                <div class="kpi-card bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                <div class="kpi-card bg-white/90 p-6 rounded-xl shadow-md border border-gray-100">
                     <h3 class="font-semibold text-lg text-gray-700 mb-4">Структура затрат на материалы</h3>
                     <div class="chart-container"><canvas id="costStructureChart"></canvas></div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="mb-16 bg-teal-50 p-8 rounded-xl shadow-lg border border-teal-100">
-            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Заявка на внедрение и консультацию</h2>
-            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">
-                Заполните форму, и вы <strong>сразу же</strong> получите полный доступ ко всей интерактивной схеме. Это займет 15 секунд. Я свяжусь с вами для обсуждения деталей внедрения этой системы в вашей компании.
-            </p>
-            <form id="contactForm" class="max-w-xl mx-auto space-y-4">
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700">Ваше имя</label>
-                    <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500" value="Александр">
+        <section id="contact" class="mb-16 bg-teal-50/90 p-8 rounded-xl shadow-lg border border-teal-100">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Приглашение на работу</h2>
+                <p class="text-center text-gray-700 font-semibold text-xl">Руководитель отдела снабжения</p>
+                
+                <div class="mt-6 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <p id="salary-display" class="text-2xl font-bold text-teal-600">120 000 ₽ <span class="text-lg font-normal text-gray-600">за месяц на руки</span></p>
+                    <div class="mt-4 grid grid-cols-2 gap-4 text-sm text-gray-700">
+                        <div><span class="font-semibold">Выплаты:</span> два раза в месяц</div>
+                        <div><span class="font-semibold">Опыт работы:</span> 3–6 лет</div>
+                        <div><span class="font-semibold">Занятость:</span> полная</div>
+                        <div><span class="font-semibold">График:</span> 5/2, с 9:00 до 18:00</div>
+                    </div>
                 </div>
-                <div>
-                    <label for="company" class="block text-sm font-medium text-gray-700">Название компании</label>
-                    <input type="text" id="company" name="company" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500" value="РСК &quot;ВИРА&quot;">
+
+                <form id="offerForm" class="mt-8 space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Готовы предложить:</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+                            <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="120000" class="mr-2 text-teal-600 focus:ring-teal-500" checked>120 000 ₽/мес</label>
+                            <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="130000" class="mr-2 text-teal-600 focus:ring-teal-500">130 000 ₽/мес</label>
+                            <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="140000" class="mr-2 text-teal-600 focus:ring-teal-500">140 000 ₽/мес</label>
+                            <label class="flex items-center p-3 bg-white border border-gray-300 rounded-md cursor-pointer hover:bg-teal-50 hover:border-teal-400"><input type="radio" name="salary" value="negotiable" class="mr-2 text-teal-600 focus:ring-teal-500">Договоримся</label>
+                        </div>
+                    </div>
+                     <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">От кого офер</label>
+                        <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500" value="Александр">
+                    </div>
+                    <div class="text-center pt-4">
+                        <button type="submit" class="w-full bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-teal-700 transition-transform transform hover:scale-105">Отправить офер</button>
+                    </div>
+                </form>
+                <div id="form-success-message" class="hidden text-center mt-6 p-4 bg-green-100 text-green-800 rounded-lg">
+                    <h3 class="font-bold">Офер сформирован!</h3>
+                    <p>Сообщение готово к отправке в Telegram.</p>
                 </div>
-                <div>
-                    <label for="contactInfo" class="block text-sm font-medium text-gray-700">Телефон или Email для связи</label>
-                    <input type="text" id="contactInfo" name="contactInfo" required placeholder="Обязательное поле" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500">
-                </div>
-                <div class="text-center pt-4">
-                    <button type="submit" class="w-full bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-teal-700 transition-transform transform hover:scale-105">Разблокировать доступ и отправить заявку</button>
-                </div>
-            </form>
-            <div id="form-success-message" class="hidden text-center mt-6 p-4 bg-green-100 text-green-800 rounded-lg">
-                <h3 class="font-bold">Спасибо! Доступ открыт.</h3>
-                <p>Ваша заявка отправлена. Полная версия схемы разблокирована. Я скоро свяжусь с вами.</p>
             </div>
         </section>
 
-        <section id="implementation" class="mb-16 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+        <section id="implementation" class="mb-16 bg-white/90 p-8 rounded-xl shadow-lg border border-gray-100">
             <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">План внедрения системы</h2>
              <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">
                 Для успешного внедрения представленного алгоритма в действующей компании в Архангельске, рекомендуется следовать этому пошаговому плану. План разделен на фазы, что обеспечивает плавный переход и минимизирует риски для текущих строительных проектов.
@@ -204,7 +272,7 @@
                     </ul>
                 </div>
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="font-bold text-lg text-teal-700 mb-3">Фаза 4: Оптимизация (Постоянно)</h3>
+                    <h3 class="font-bold text-lg text-teal-700 mb-3">Фаза 4: Оптимизация (постоянно)</h3>
                     <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
                         <li>Мониторинг KPI</li>
                         <li>Регулярный сбор обратной связи</li>
@@ -215,13 +283,13 @@
             </div>
         </section>
 
-        <section id="practices" class="mb-16">
+        <section id="practices">
             <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Сравнение мировых и российских практик</h2>
              <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
                 Понимание различий в подходах к управлению материалами помогает выбрать оптимальную стратегию. Современные цифровые методы предлагают значительные преимущества в точности, скорости и контроле по сравнению с традиционными бумажными системами.
             </p>
             <div class="overflow-x-auto">
-                <table class="min-w-full bg-white rounded-lg shadow overflow-hidden">
+                <table class="min-w-full bg-white/90 rounded-lg shadow overflow-hidden">
                     <thead class="bg-teal-600 text-white">
                         <tr>
                             <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Аспект</th>
@@ -235,7 +303,7 @@
                             <td class="py-3 px-4">На основе сметы, часто с большим запасом "на всякий случай"</td>
                             <td class="py-3 px-4">Динамическое, "Точно в срок" (Just-in-Time), на основе BIM-модели</td>
                         </tr>
-                        <tr class="border-b bg-gray-50">
+                        <tr class="border-b bg-gray-50/90">
                             <td class="py-3 px-4 font-medium">Учет</td>
                             <td class="py-3 px-4">Бумажные формы (М-29, М-15), ручной ввод в 1С</td>
                             <td class="py-3 px-4">Цифровой: QR-коды, RFID-метки, мобильные приложения, интеграция с ERP</td>
@@ -245,7 +313,7 @@
                             <td class="py-3 px-4">Периодические инвентаризации, сложно отследить хищения/потери</td>
                             <td class="py-3 px-4">Контроль в реальном времени, отслеживание каждой единицы, фотофиксация</td>
                         </tr>
-                        <tr class="bg-gray-50">
+                        <tr class="bg-gray-50/90">
                             <td class="py-3 px-4 font-medium">Принятие решений</td>
                             <td class="py-3 px-4">На основе опыта и интуиции прораба/снабженца</td>
                             <td class="py-3 px-4">На основе аналитики данных (Data-Driven), прогнозный анализ</td>
@@ -254,75 +322,9 @@
                 </table>
             </div>
         </section>
-
-        <section id="document-flow" class="mb-16 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Визуализация документооборота</h2>
-            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-                Рассмотрим весь путь на самом простом примере — как один гвоздь проходит через всю систему учета от заявки до списания.
-            </p>
-            <div class="flex justify-center mb-10">
-                <svg class="w-24 h-24 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m-3-1l-3 1m0-1l-3-1m3 1V3.545M3 15.25v2.25m15-4.5v-2.25a.75.75 0 00-1.5 0v2.25a.75.75 0 001.5 0zM3 15.25v2.25m15-4.5v-2.25a.75.75 0 00-1.5 0v2.25a.75.75 0 001.5 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v1.5H3.75V6zM3.75 18.75A2.25 2.25 0 011.5 16.5V6" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5l-4.5-4.5-4.5 4.5" />
-                    <path d="M12 3L2 8L12 13L22 8L12 3Z" fill="#d1d5db"></path>
-                    <path d="M4.5 17.5L2 15L12 20L22 15L19.5 17.5" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M22 8V15" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    <path d="M2 8V15" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-                <svg class="w-24 h-24 text-gray-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.241 1.514a3.11 3.11 0 00-4.482 0L3.993 7.28a3.11 3.11 0 000 4.482l8.485 8.485a3.11 3.11 0 004.482 0l5.768-5.768a3.11 3.11 0 000-4.482L14.241 1.514z" stroke="#9ca3af" stroke-width="1.5"></path><path d="M12.56 12.016l-1.385 1.385a.5.5 0 01-.707 0l-1.385-1.385a.5.5 0 010-.707l1.385-1.385a.5.5 0 01.707 0l1.385 1.385a.5.5 0 010 .707z" stroke="#9ca3af" stroke-width="1.5"></path></svg>
-                 <svg class="w-24 h-24 text-gray-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 4.5h13v15H5.5v-15z" stroke="#9ca3af" stroke-width="1.5"></path><path d="M8.5 7.5h7M8.5 10.5h7M8.5 13.5h4" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round"></path></svg>
-            </div>
-            <div class="relative">
-                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-teal-200 -translate-y-1/2"></div>
-                <div class="relative grid grid-cols-1 md:grid-cols-5 gap-y-8 md:gap-x-4">
-                    <div class="flex flex-col items-center text-center space-y-2">
-                        <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">1</div>
-                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full">
-                            <h3 class="font-semibold mb-1 text-gray-800">Заявка</h3>
-                            <p class="text-sm text-gray-500">📋 Требование-накладная (М-11)</p>
-                            <p class="text-xs text-gray-400 mt-1">Инициатор: Прораб</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-center text-center space-y-2">
-                        <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">2</div>
-                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full">
-                            <h3 class="font-semibold mb-1 text-gray-800">Отпуск со склада</h3>
-                            <p class="text-sm text-gray-500">📋 Подписанная М-11</p>
-                            <p class="text-xs text-gray-400 mt-1">Исполнитель: Кладовщик</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-center text-center space-y-2">
-                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">3</div>
-                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full">
-                            <h3 class="font-semibold mb-1 text-gray-800">Использование</h3>
-                            <p class="text-sm text-gray-500">🔨 Физический расход</p>
-                            <p class="text-xs text-gray-400 mt-1">Исполнитель: Рабочий</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-center text-center space-y-2">
-                        <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">4</div>
-                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full">
-                            <h3 class="font-semibold mb-1 text-gray-800">Фиксация расхода</h3>
-                            <p class="text-sm text-gray-500">📋 Акт вып. работ (КС-2)</p>
-                            <p class="text-xs text-gray-400 mt-1">Ответственный: Прораб</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-center text-center space-y-2">
-                        <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto font-bold text-2xl z-10 border-4 border-white">5</div>
-                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-100 w-full">
-                            <h3 class="font-semibold mb-1 text-gray-800">Списание</h3>
-                            <p class="text-sm text-gray-500">📋 Отчет о расходе (М-29)</p>
-                            <p class="text-xs text-gray-400 mt-1">Исполнитель: Бухгалтерия</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <footer class="text-center py-10 mt-10 border-t border-gray-200 bg-gray-50">
+    <footer class="text-center py-10 mt-10 border-t border-gray-200 bg-gray-50/90">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p class="text-xl font-semibold text-gray-800">Климов Евгений Александрович</p>
             <p class="mt-2 text-gray-600">Автор и разработчик системы</p>
@@ -331,6 +333,20 @@
             </a>
         </div>
     </footer>
+
+    <!-- Floating Feedback Box -->
+    <div id="feedback-box" class="fixed bottom-6 left-6 z-50 bg-white/95 p-4 rounded-lg shadow-lg text-center border">
+        <p class="text-sm font-semibold mb-2 text-gray-700">Оцените презентацию:</p>
+        <div id="feedback-buttons" class="flex justify-center gap-3">
+            <button id="likeButton" class="flex items-center justify-center bg-green-500 text-white w-12 h-10 rounded-lg shadow-md hover:bg-green-600 transition-transform transform hover:scale-110">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333V17a1 1 0 001 1h6.758a1 1 0 00.97-1.226l-1.25-4.375a1 1 0 00-.97-.774H9V5.833A1.833 1.833 0 007.167 4H6.5a1 1 0 00-1 1v4.333z"></path></svg>
+            </button>
+            <button id="dislikeButton" class="flex items-center justify-center bg-red-500 text-white w-12 h-10 rounded-lg shadow-md hover:bg-red-600 transition-transform transform hover:scale-110">
+                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667V3a1 1 0 00-1-1h-6.758a1 1 0 00-.97 1.226l1.25 4.375a1 1 0 00.97.774H11v8.167A1.833 1.833 0 0012.833 16h.667a1 1 0 001-1V9.667z"></path></svg>
+            </button>
+        </div>
+        <p id="feedback-thanks" class="hidden text-sm font-semibold text-teal-700">Спасибо!</p>
+    </div>
 
     <!-- Floating Telegram Button -->
     <a href="https://t.me/eklimov?text=Здравствуйте!%20Пишу%20из%20презентации%20по%20управлению%20материальными%20запасами,%20опубликованной%20на%20сайте%20https://eklimov.github.io/construction-material-flow/" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-sky-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-sky-600 transition-transform transform hover:scale-110">
@@ -344,7 +360,7 @@
         const processData = [
             {
                 id: 'step1',
-                title: '1. Планирование и Заявка',
+                title: '1. Планирование и заявка',
                 color: 'border-blue-500',
                 content: {
                     participants: ['Инженер ПТО', 'Прораб', 'Начальник участка'],
@@ -359,7 +375,7 @@
             },
             {
                 id: 'step2',
-                title: '2. Снабжение и Закупка',
+                title: '2. Снабжение и закупка',
                 color: 'border-indigo-500',
                 content: {
                     participants: ['Отдел снабжения', 'Сметный отдел'],
@@ -375,7 +391,7 @@
             },
             {
                 id: 'step3',
-                title: '3. Логистика и Приемка',
+                title: '3. Логистика и приемка',
                 color: 'border-purple-500',
                 content: {
                     participants: ['Отдел логистики', 'Зав. складом / Кладовщик', 'Прораб'],
@@ -456,24 +472,19 @@
         ];
         
         const processContainer = document.querySelector('#process-container');
-        const processOverlay = document.querySelector('#process-overlay');
-        const unlockButton = document.querySelector('#unlock-button');
-        const contactForm = document.querySelector('#contactForm');
-        const formSuccessMessage = document.querySelector('#form-success-message');
-        const contactSection = document.querySelector('#contact');
+        const offerForm = document.getElementById('offerForm');
+        const formSuccessMessage = document.getElementById('form-success-message');
         
         function generateProcessSteps() {
             processContainer.innerHTML = ''; 
-            processData.forEach((step, index) => {
+            processData.forEach((step) => {
                 const stepEl = document.createElement('div');
                 stepEl.className = 'mb-8 ml-4';
-                stepEl.dataset.stepIndex = index;
-                
-                const isLocked = index > 0;
-
                 stepEl.innerHTML = `
-                    <div class="absolute w-4 h-4 bg-teal-500 rounded-full -left-[9px] border-2 border-white"></div>
-                    <div class="step-card ${isLocked ? '' : 'cursor-pointer'} bg-white p-6 rounded-lg shadow-sm ${step.color}">
+                    <div class="absolute w-8 h-8 -left-4 top-2.5 flex items-center justify-center">
+                        <img src="https://grizly.club/uploads/posts/2023-08/1691613712_grizly-club-p-kartinki-gvozd-bez-fona-32.jpg" alt="Гвоздь" class="w-7 h-7 object-contain -rotate-45" onerror="this.style.display='none'">
+                    </div>
+                    <div class="step-card cursor-pointer bg-white p-6 rounded-lg shadow-sm ${step.color}">
                         <h3 class="text-xl font-bold text-gray-800">${step.title}</h3>
                     </div>
                     <div class="step-details pl-4 pt-4">
@@ -497,56 +508,75 @@
                         </div>
                     </div>
                 `;
-                
-                if (isLocked) {
-                    stepEl.querySelector('.step-card').classList.add('locked');
-                }
-
                 processContainer.appendChild(stepEl);
 
-                stepEl.querySelector('.step-card').addEventListener('click', (e) => {
-                    if (e.currentTarget.classList.contains('locked')) {
-                        contactSection.scrollIntoView({ behavior: 'smooth' });
-                    } else {
-                        stepEl.querySelector('.step-details').classList.toggle('open');
-                    }
+                stepEl.querySelector('.step-card').addEventListener('click', () => {
+                    stepEl.querySelector('.step-details').classList.toggle('open');
                 });
             });
         }
 
         generateProcessSteps();
 
-        unlockButton.addEventListener('click', () => {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-        });
-
-        contactForm.addEventListener('submit', function(e) {
+        offerForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const contactInfo = document.getElementById('contactInfo').value;
-            if (contactInfo.trim() === '') {
-                const contactInfoInput = document.getElementById('contactInfo');
-                contactInfoInput.focus();
-                contactInfoInput.classList.add('border-red-500', 'ring-red-500');
-                return;
+            const offerFrom = document.getElementById('name').value;
+            const selectedSalaryRadio = document.querySelector('input[name="salary"]:checked');
+            let salaryText = '';
+
+            if (selectedSalaryRadio.value === 'negotiable') {
+                salaryText = 'обсуждаемую зарплату (договоримся)';
+            } else {
+                salaryText = `${new Intl.NumberFormat('ru-RU').format(selectedSalaryRadio.value)} ₽ в месяц`;
             }
 
-            processOverlay.style.display = 'none';
-            document.querySelectorAll('.step-card.locked').forEach(card => {
-                card.classList.remove('locked');
-                card.classList.add('cursor-pointer');
-            });
+            const message = `Александр, здравствуйте!\n\nНаправляю вам офер (приглашение на работу) на должность "Руководитель отдела снабжения" от имени "${offerFrom}".\n\nУсловия, которые мы готовы предложить:\n- Зарплата: ${salaryText}\n- График: 5/2, с 9 до 18\n- Опыт: 3–6 лет\n\nПодробности презентации доступны по ссылке: https://eklimov.github.io/construction-material-flow/\n\nГотовы обсудить детали.`;
+            const telegramUrl = `https://t.me/eklimov?text=${encodeURIComponent(message)}`;
             
-            contactForm.style.display = 'none';
-            document.querySelector('#contact h2').textContent = 'Заявка успешно отправлена!';
-            document.querySelector('#contact > p').style.display = 'none';
+            window.open(telegramUrl, '_blank');
+            
+            offerForm.style.display = 'none';
+            document.querySelector('#contact > div > p').style.display = 'none';
             formSuccessMessage.classList.remove('hidden');
-            
-            window.scrollTo({ top: document.querySelector('#process').offsetTop, behavior: 'smooth' });
         });
 
-        document.getElementById('contactInfo').addEventListener('input', function() {
-            this.classList.remove('border-red-500', 'ring-red-500');
+        // Dynamic salary display
+        const salaryRadios = document.querySelectorAll('input[name="salary"]');
+        const salaryDisplay = document.getElementById('salary-display');
+        salaryRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'negotiable') {
+                    salaryDisplay.innerHTML = `Договорная <span class="text-lg font-normal text-gray-600">зарплата</span>`;
+                } else {
+                    const formattedSalary = new Intl.NumberFormat('ru-RU').format(this.value);
+                    salaryDisplay.innerHTML = `${formattedSalary} ₽ <span class="text-lg font-normal text-gray-600">за месяц на руки</span>`;
+                }
+            });
         });
+
+        // Feedback buttons logic
+        const likeButton = document.getElementById('likeButton');
+        const dislikeButton = document.getElementById('dislikeButton');
+        const feedbackThanks = document.getElementById('feedback-thanks');
+        const feedbackButtons = document.getElementById('feedback-buttons');
+        
+        likeButton.addEventListener('click', () => {
+            ym(104272984, 'reachGoal', 'like_click');
+            const telegramUrl = `https://t.me/eklimov?text=Здравствуйте!%20Мне%20понравилась%20ваша%20презентация%20по%20управлению%20материалами%20на%20сайте%20https://eklimov.github.io/construction-material-flow/`;
+            window.open(telegramUrl, '_blank');
+            feedbackButtons.classList.add('hidden');
+            feedbackThanks.classList.remove('hidden');
+        });
+
+        dislikeButton.addEventListener('click', () => {
+            const reason = prompt('Пожалуйста, укажите, что именно вам не понравилось или чего не хватило:');
+            if (reason !== null) { // User clicked OK, even if the reason is empty
+                ym(104272984, 'reachGoal', 'dislike_click', { reason: reason || 'Причина не указана' });
+                feedbackButtons.classList.add('hidden');
+                feedbackThanks.classList.remove('hidden');
+            }
+        });
+
 
         const chartOptions = {
             responsive: true,
